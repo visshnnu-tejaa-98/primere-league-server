@@ -10,8 +10,9 @@ const Authenticate = async (req, res, next) => {
 		const bearer = await req.headers['authorization'];
 		if (!bearer) return res.json({ message: 'access failed' });
 		jwt.verify(bearer, process.env.JWT_SECRET, (err, data) => {
-			if (data) next();
-			else res.json({ message: 'autorization failed' });
+			if (data) {
+				next();
+			} else res.json({ message: 'autorization failed' });
 		});
 	} catch (error) {
 		return res.json({ message: 'something went wrong in authentication' });
